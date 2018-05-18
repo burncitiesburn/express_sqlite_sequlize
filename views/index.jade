@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1= title
+
+  div(class="col-md-4")
+    h2 Create user
+
+    form(action="/users/create", method="post", class="well")
+      div(class="form-group")
+        label(for="username")
+          | Username
+        input(type="text", name="username", class="form-control")
+      input(type="submit" class="btn btn-default")
+
+
+  div(class="col-md-4")
+    h2 Create Schedule
+
+    form(action="/schedule/create", method="post", class="well")
+      div(class="form-group")
+        label(for="event_date")
+          | Event Date
+        input(type="text", name="event_date", class="form-control")
+        label(for="team_home")
+          | Team Home
+        input(type="text", name="team_home", class="form-control")
+        label(for="team_away")
+          | Team Away
+        input(type="text", name="team_away", class="form-control")
+      input(type="submit" class="btn btn-default")
+
+  div(class="col-md-6")
+    h2 Users
+
+    ul
+    each user in users
+      li
+        strong
+          = user.username
+        | &nbsp;
+        a(href="/users/" + user.id + "/destroy", class="btn btn-xs btn-warning") delete
+
+  div(class="col-md-6")
+    h2 Schedules
+
+    ul
+    each schedule in schedules
+      li
+        strong
+          = schedule.team_home + "-" + schedule.team_away + "-" + schedule.event_date
+        | &nbsp;
+        a(href="/schedule/" + schedule.id + "/destroy", class="btn btn-xs btn-warning") delete
+        
